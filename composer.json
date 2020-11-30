@@ -1,0 +1,7 @@
+{
+    "require": {
+        "smarty/smarty": "~3.1",
+        "dompdf/dompdf": "^0.8.6",
+        "symfony/http-foundation": "^5.2"
+    }
+}
