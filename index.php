@@ -7,10 +7,19 @@ $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
 if ($request->getMethod() == 'POST') {
     // Example data structure below
     // We need to replace this with data coming from a CSV file.
-    $data[0]['first_name'] = 'John';
+    /*$data[0]['first_name'] = 'John';
     $data[0]['last_name'] = 'Johnson';
     $data[1]['first_name'] = 'Pete';
-    $data[1]['last_name'] = 'Peterson';
+    $data[1]['last_name'] = 'Peterson';*/
+    
+    $file = $request->files->get('myfile');
+    $filename = $file->getPathName();
+    if (($handle = fopen($filename, "r")) !== FALSE) {
+    while (($row = fgetcsv($handle, 1000, ";")) !== FALSE) {
+        $data[] = $row;
+    }
+    fclose($handle);
+}
 
     $pdfSmarty = new Smarty();
     $pdfSmarty->setTemplateDir(getcwd().'/templates/');
